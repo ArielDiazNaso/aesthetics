@@ -873,4 +873,27 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+
+  // ------------------------------------------------------------------------
+  // 08. SCROLL REVEAL ANIMATIONS
+  // ------------------------------------------------------------------------
+  const revealElements = document.querySelectorAll('.reveal, .reveal-up, .reveal-right, .reveal-stagger > *');
+  
+  const revealOptions = {
+    root: null,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.05
+  };
+  
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, revealOptions);
+  
+  revealElements.forEach(el => revealObserver.observe(el));
+
 });

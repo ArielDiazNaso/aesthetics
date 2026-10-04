@@ -1,0 +1,4 @@
+.agent/
+.agents/
+*.log
+.DS_Store
