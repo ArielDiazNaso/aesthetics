@@ -506,69 +506,81 @@ button {
   justify-content: center;
   align-items: center;
   gap: 6px;
-  width: 42px;
-  height: 42px;
-  padding: 8px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
   color: var(--color-bone);
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--color-noir-border);
   border-radius: var(--radius-xs);
   z-index: 1002;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.mobile-toggle:hover {
-  background-color: rgba(201, 164, 97, 0.1);
-  border-color: var(--color-gold-glow);
+.mobile-toggle:hover,
+.mobile-toggle:active {
+  background-color: rgba(201, 164, 97, 0.15);
+  border-color: var(--color-gold);
 }
 
 .hamburger-line {
   display: block;
   width: 22px;
-  height: 1.5px;
+  height: 2px;
   background-color: var(--color-bone);
+  border-radius: 1px;
+  pointer-events: none;
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 
-/* Mobile Drawer */
+/* Mobile Drawer (High Z-Index, Fullscreen, Independent) */
 .mobile-drawer {
   position: fixed;
   inset: 0;
-  z-index: 2000;
-  display: none;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999;
   visibility: hidden;
   opacity: 0;
-  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .mobile-drawer.is-open {
-  display: block;
-  visibility: visible;
-  opacity: 1;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .drawer-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1;
 }
 
 .drawer-content {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
-  width: min(85vw, 420px);
+  width: min(85vw, 380px);
   height: 100%;
-  background-color: #111115;
+  height: 100dvh;
+  background-color: #111116;
   border-left: 1px solid var(--color-noir-border);
   display: flex;
   flex-direction: column;
   padding: 2rem 1.75rem;
   transform: translateX(100%);
-  transition: transform var(--transition-normal);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 2;
 }
 
 .mobile-drawer.is-open .drawer-content {
